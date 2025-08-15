@@ -1,0 +1,13 @@
+# Environment files
+.env
+backend/.env
+smart-contracts/.env
+
+# Node modules
+node_modules/
+backend/node_modules/
+smart-contracts/node_modules/
+
+# Build artifacts
+smart-contracts/artifacts/
+smart-contracts/cache/

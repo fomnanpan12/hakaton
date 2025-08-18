@@ -37,23 +37,30 @@
 
   <script>
     const DOMAIN = "https://hakaton-1lu4.onrender.com"; // change to your real domain if deployed
+    let lastScanned = "";   // track last scanned QR
+    let scannedOnce = false; // prevent multiple tab opens
 
     function handleResult(decodedText) {
-      document.getElementById("result").innerText = "Scanned: " + decodedText;
+        document.getElementById("result").innerText = "Scanned: " + decodedText;
 
-      if (decodedText.startsWith(DOMAIN)) {
+        if (!scannedOnce && decodedText.startsWith(DOMAIN)) {
+        scannedOnce = true; // block future opens
         window.open(decodedText, "_blank");
-      } else {
+        } else if (!decodedText.startsWith(DOMAIN)) {
         alert("Invalid QR: " + decodedText);
-      }
+        }
     }
 
     // Live camera scanning
     function onScanSuccess(decodedText) {
-      handleResult(decodedText);
+        if (decodedText !== lastScanned) {
+        lastScanned = decodedText; // ignore duplicate scans
+        handleResult(decodedText);
+        }
     }
+
     function onScanError(errorMessage) {
-      // ignore errors
+        // ignore errors
     }
 
     let scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
@@ -61,19 +68,19 @@
 
     // Upload file scanning
     document.getElementById("qr-input-file").addEventListener("change", async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
+        const file = e.target.files[0];
+        if (!file) return;
 
-      const qrCodeScanner = new Html5Qrcode("reader-upload");
-      try {
+        const qrCodeScanner = new Html5Qrcode("reader-upload");
+        try {
         const result = await qrCodeScanner.scanFile(file, true);
         handleResult(result);
-      } catch (err) {
+        } catch (err) {
         alert("Could not scan file: " + err);
-      }
+        }
     });
+   </script>
 
-  </script>
   <script>
   document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector(".navbar");

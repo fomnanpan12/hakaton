@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Chain • My Products</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Product2Chain</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="about.html">About</a>
+      <a href="productview.html" class="active">Add Products</a>
+      <a href="productlist.html">My Products</a>
+      <a href="auth.html" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Register New Product -->
+    <section class="card">
+      <h2>Register New Product</h2>
+      <div class="form-group">
+        <input id="p-name" placeholder="Product Name" />
+        <input id="p-producer" placeholder="Farm/Producer Address" />
+        <input id="p-harvest" type="date" />
+        <input id="p-packaging" type="date" />
+        <input id="p-expiry" type="date" />
+        <button onclick="registerProduct()">Submit to Blockchain</button>
+      </div>
+      <div id="qr"></div>
+      <div id="result"></div>
+    </section>
+
+    <!-- My Products -->
+    <section class="card">
+      <h2>My Products</h2>
+      <div id="products-container">
+        <p>Loading your products...</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    async function registerProduct() {
+      const token = localStorage.getItem("token");
+      if (!token) return alert("Please login first.");
+
+      // if harvest date is empty, send "Not Applicable"
+      const harvestDate = document.getElementById("p-harvest").value || "Not Applicable";
+
+      const body = {
+        name: document.getElementById("p-name").value,
+        producerAddress: document.getElementById("p-producer").value,
+        harvestDate: harvestDate,
+        packagingDate: document.getElementById("p-packaging").value,
+        expiryDate: document.getElementById("p-expiry").value,
+      };
+
+      // Show loader
+      const qr = document.getElementById("qr");
+      qr.innerHTML = `<p>⏳ Registering product on chain... please wait</p>`;
+      document.getElementById("result").innerHTML = "";
+
+      try {
+        const res = await fetch(API + "/product/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
+          body: JSON.stringify(body),
+        });
+
+        const data = await res.json();
+
+        if (data.qrCode) {
+          // Show QR image
+          const img = new Image();
+          img.src = data.qrCode;
+          img.alt = "QR Code";
+          img.width = 220;
+
+          qr.innerHTML = "";
+          qr.appendChild(img);
+
+          // Show Product ID and Transaction Hash + Download button
+          const result = document.getElementById("result");
+          result.innerHTML = `
+            <p><strong>Product ID:</strong> ${data.productId}</p>
+            <p><strong>Transaction Hash:</strong> ${data.txHash}</p>
+            <a href="${data.qrCode}" download="product-${data.productId}-qr.png" class="download-btn">
+              ⬇️ Download QR Code
+            </a>
+          `;
+        } else {
+          qr.innerHTML = "";
+          alert(data.error || "Failed");
+        }
+      } catch (err) {
+        qr.innerHTML = "";
+        alert("Error: " + err.message);
+      }
+    }
+
+    async function loadMyProducts() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "auth.html";
+        return;
+      }
+
+      try {
+        const res = await fetch(API + "/products/my", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const products = await res.json();
+        const container = document.getElementById("products-container");
+
+        if (!products.length) {
+          container.innerHTML = "<p>You have not registered any products yet.</p>";
+          return;
+        }
+
+        container.innerHTML = `
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Producer</th>
+                <th>Harvest</th>
+                <th>Packaging</th>
+                <th>Expiry</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${products.map(p => `
+                <tr>
+                  <td>${p.name}</td>
+                  <td>${p.producerAddress}</td>
+                  <td>${p.productionDate}</td>
+                  <td>${p.packagingDate}</td>
+                  <td>${p.expiryDate}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      } catch (err) {
+        document.getElementById("products-container").innerHTML =
+          "<p>Error loading products. Please try again later.</p>";
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "auth.html";
+    }
+
+    loadMyProducts();
+  </script>
+
+</body>
+</html>

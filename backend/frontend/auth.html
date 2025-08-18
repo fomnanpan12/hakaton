@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Chain • Auth</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo" onclick="window.location.href='/'">Product2Chainn</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/features.html">Features</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/auth.html" class="nav-btn">Sign In</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <!-- <h1>Product Chain</h1> -->
+
+    <div class="card" id="auth-card">
+      <!-- Login Form -->
+      <div id="login-form">
+        <h2>Login</h2>
+        <input id="log-username" placeholder="Username" />
+        <input id="log-password" type="password" placeholder="Password" />
+        <button onclick="login()">Login</button>
+        <button class="switch-btn" onclick="toggleForm()">Switch to Register</button>
+      </div>
+
+      <!-- Registration Form -->
+      <div id="register-form" style="display:none;">
+        <h2>Register</h2>
+        <input id="reg-username" placeholder="Username" />
+        <input id="reg-password" type="password" placeholder="Password" />
+        <button onclick="register()">Create Account</button>
+        <button class="switch-btn" onclick="toggleForm()">Switch to Login</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    // Toggle between login and register
+    function toggleForm() {
+      const loginForm = document.getElementById("login-form");
+      const registerForm = document.getElementById("register-form");
+      if (loginForm.style.display === "none") {
+        loginForm.style.display = "block";
+        registerForm.style.display = "none";
+      } else {
+        loginForm.style.display = "none";
+        registerForm.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>

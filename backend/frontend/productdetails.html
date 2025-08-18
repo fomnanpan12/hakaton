@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Product Details</h1>
+  <div id="details"></div>
+
+  <script>
+    const API = "http://localhost:5000";
+
+    async function loadDetails() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "auth.html";
+        return;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      if (!id) return document.getElementById("details").innerText = "No product selected.";
+
+      try {
+        const res = await fetch(API + "/products/" + id, {
+          headers: { Authorization: "Bearer " + token }
+        });
+        const p = await res.json();
+
+        document.getElementById("details").innerHTML = `
+          <p><b>Name:</b> ${p.name}</p>
+          <p><b>Producer:</b> ${p.producerAddress}</p>
+          <p><b>Harvest:</b> ${p.harvestDate}</p>
+          <p><b>Packaging:</b> ${p.packagingDate}</p>
+          <p><b>Expiry:</b> ${p.expiryDate}</p>
+          <p><b>Product ID:</b> ${p.productId}</p>
+          <p><b>Tx Hash:</b> ${p.txHash}</p>
+          <p><b>Created:</b> ${new Date(p.createdAt).toLocaleString()}</p>
+          <h3>QR Code</h3>
+          <img src="${p.qrCode}" width="220" alt="QR Code">
+        `;
+      } catch (err) {
+        document.getElementById("details").innerText = "Error loading product.";
+      }
+    }
+
+    loadDetails();
+  </script>
+</body>
+</html>

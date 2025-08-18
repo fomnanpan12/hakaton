@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body { font-family: Arial, sans-serif;}
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      background: #f9f9f9;
+    }
+    .btn {
+      padding: 8px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo" onclick="window.location.href='/'">Product2Chain</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/features.html">Features</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/auth.html" class="nav-btn">Sign In</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <h1 style="text-align:center;">Product Details</h1>
+    <div id="product"></div>
+  </div>
+  <script>
+    async function load() {
+      const url = new URL(window.location.href);
+      const id = url.searchParams.get("id");
+      if (!id) {
+        document.getElementById("product").innerText = "No ID provided.";
+        return;
+      }
+
+      const api = "http://localhost:5000/product/" + id;
+      try {
+        const res = await fetch(api);
+        const data = await res.json();
+
+        if (data.error) {
+          document.getElementById("product").innerText = data.error;
+          return;
+        }
+
+        document.getElementById("product").innerHTML = `
+          <div class="card">
+            <p><b>Product ID:</b> ${data.id}</p>
+            <p><b>Name:</b> ${data.name}</p>
+            <p><b>Producer:</b> ${data.producerAddress}</p>
+            <p><b>Harvest Date:</b> ${data.harvestDate}</p>
+            <p><b>Packaging Date:</b> ${data.packagingDate}</p>
+            <p><b>Expiry Date:</b> ${data.expiryDate}</p>
+            <p><b>Transaction Hash:</b> <a href="${data.url}" target="_blank">${data.txHash || "N/A"}</a></p>
+          </div>
+        `;
+      } catch (err) {
+        document.getElementById("product").innerText = "⚠️ Failed to load product.";
+        console.error(err);
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>

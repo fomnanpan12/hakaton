@@ -47,6 +47,8 @@ const contractAddress = process.env.CONTRACT_ADDRESS;
 const contract = new ethers.Contract(contractAddress, loadAbi(), wallet);
 
 // Register product on-chain
+import Product from "../models/Product.js";
+
 router.post("/register", auth, async (req, res) => {
   try {
     const { name, producerAddress, harvestDate, packagingDate, expiryDate } = req.body;
@@ -54,29 +56,85 @@ router.post("/register", auth, async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
+    // Blockchain transaction
     const tx = await contract.registerProduct(name, producerAddress, harvestDate, packagingDate, expiryDate);
     const receipt = await tx.wait();
 
-    // derive the new product id from contract state
+    // Get new product ID from contract
     const productCount = await contract.productCount();
     const productId = productCount.toNumber();
 
+    // Generate product URL and QR code
     const url = `${process.env.FRONTEND_URL || "http://localhost:5500"}/product.html?id=${productId}`;
     const qrCode = await QRCode.toDataURL(url);
 
-    res.json({ productId, qrCode, txHash: receipt.transactionHash, url });
+    // Save to DB
+    const newProduct = new Product({
+      userId: req.user.id,
+      name,
+      producerAddress,
+      harvestDate,
+      packagingDate,
+      expiryDate,
+      productId,
+      qrCode,
+      txHash: receipt.transactionHash,
+      url
+    });
+
+    await newProduct.save();
+    // console.log(newProduct);
+    
+
+    res.json(newProduct);
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: e.message });
   }
 });
 
+// Get all products for logged-in user
+router.get("/my", auth, async (req, res) => {
+  try {
+    const products = await Product.find({ userId: req.user.id }).sort({ createdAt: -1 });
+    res.json(products);
+    console.log(products)
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+
 // Read product from chain
-router.get("/:id", async (req, res) => {
+// router.get("/:id", async (req, res) => {
+//   try {
+//     const id = parseInt(req.params.id, 10);
+//     const p = await contract.getProduct(id);
+//     const data = {
+//       id: p[0].toNumber ? p[0].toNumber() : Number(p[0]),
+//       name: p[1],
+//       producerAddress: p[2],
+//       harvestDate: p[3],
+//       packagingDate: p[4],
+//       expiryDate: p[5],
+//       owner: p[6],
+//       timestamp: p[7].toNumber ? p[7].toNumber() : Number(p[7])
+//     };
+//     res.json(data);
+//   } catch (e) {
+//     res.status(500).json({ error: e.message });
+//   }
+// });
+
+router.get("/product/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
+
+    // --- On-chain data ---
     const p = await contract.getProduct(id);
-    const data = {
+    const chainData = {
       id: p[0].toNumber ? p[0].toNumber() : Number(p[0]),
       name: p[1],
       producerAddress: p[2],
@@ -86,10 +144,86 @@ router.get("/:id", async (req, res) => {
       owner: p[6],
       timestamp: p[7].toNumber ? p[7].toNumber() : Number(p[7])
     };
-    res.json(data);
+
+    // --- Off-chain data (MongoDB) ---
+    const dbProduct = await Product.findOne({ productId: id });
+
+    // Merge results (prefer MongoDB fields if present, since they include qrCode & txHash)
+    const result = {
+      ...chainData,
+      qrCode: dbProduct?.qrCode || null,
+      txHash: dbProduct?.txHash || null,
+      url: dbProduct?.url || null,
+      createdAt: dbProduct?.createdAt || null,
+      updatedAt: dbProduct?.updatedAt || null
+    };
+
+    res.json(result);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
+
+// backend/routes/product.js
+router.get("/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+
+    // get from chain
+    const p = await contract.getProduct(id);
+    const chainData = {
+      id: p[0].toNumber ? p[0].toNumber() : Number(p[0]),
+      name: p[1],
+      producerAddress: p[2],
+      harvestDate: p[3],
+      packagingDate: p[4],
+      expiryDate: p[5],
+      owner: p[6],
+      timestamp: p[7].toNumber ? p[7].toNumber() : Number(p[7])
+    };
+
+    // get from MongoDB
+    const dbData = await Product.findOne({ productId: id });
+
+    res.json({
+      ...chainData,
+      txHash: dbData?.txHash || null,
+      qrCode: dbData?.qrCode || null,
+      url: dbData?.url || null
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
+// Get single product by ID
+// router.get("/:id", auth, async (req, res) => {
+//   try {
+//     const product = await Product.findOne({ _id: req.params.id, userId: req.user.id });
+//     if (!product) return res.status(404).json({ error: "Not found" });
+//     res.json(product);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+// single product 
+// router.get("/product/:id", async (req, res) => {
+//   try {
+//     const product = await Product.findOne({ productId: req.params.id });
+
+//     if (!product) {
+//       return res.status(404).json({ error: "Product not found" });
+//     }
+
+//     res.json(product);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+
 
 export default router;

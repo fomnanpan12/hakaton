@@ -65,7 +65,7 @@ router.post("/register", auth, async (req, res) => {
     const productId = productCount.toNumber();
 
     // Generate product URL and QR code
-    const url = `${process.env.FRONTEND_URL || "http://localhost:5500"}/product.html?id=${productId}`;
+    const url = `${process.env.FRONTEND_URL}/product.html?id=${productId}`;
     const qrCode = await QRCode.toDataURL(url);
 
     // Save to DB

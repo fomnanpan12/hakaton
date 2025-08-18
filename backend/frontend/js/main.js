@@ -1,4 +1,4 @@
-const API = "http://localhost:5000";
+const API = localStorage.getItem("API") || "https://hakaton-1lu4.onrender.com/";
 
 // ====================== QR SCANNER PAGE ======================
 

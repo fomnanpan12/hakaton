@@ -1,4 +1,4 @@
-const API = "https://hakaton-1lu4.onrender.com/";
+const API = localStorage.getItem("API") || "https://hakaton-1lu4.onrender.com";
 
 async function register() {
   const username = document.getElementById("reg-username").value;

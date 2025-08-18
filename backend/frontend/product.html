@@ -61,7 +61,7 @@
         return;
       }
 
-      const api = "https://hakaton-1lu4.onrender.com/product" + id;
+      const api = "https://hakaton-1lu4.onrender.com/product/" + id;
       try {
         const res = await fetch(api);
         const data = await res.json();

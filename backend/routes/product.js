@@ -65,7 +65,7 @@ router.post("/register", auth, async (req, res) => {
     const productId = productCount.toNumber();
 
     // Generate product URL and QR code
-    const url = `${process.env.PORT}/product.html?id=${productId}`;
+    const url = `https://hakaton-1lu4.onrender.com/product.html?id=${productId}`;
     const qrCode = await QRCode.toDataURL(url);
 
     // Save to DB

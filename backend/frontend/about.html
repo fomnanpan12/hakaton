@@ -16,12 +16,18 @@
         <nav>
             <ul class="nav-links">
             <li><a href="/">Home</a></li>
+            <li><a href="/scan.html">Scan</a></li>
             <li><a href="/about.html">About</a></li>
-            <li><a href="/features.html">Features</a></li>
+            <!-- <li><a href="/features.html">Features</a></li> -->
             <li><a href="/contact.html">Contact</a></li>
             <li><a href="/auth.html" class="nav-btn">Sign In</a></li>
             </ul>
         </nav>
+        <button class="hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+        </button>
         </div>
     </header>
 
@@ -71,7 +77,19 @@
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2025 Track2Chain. All Rights Reserved.</p>
-    </footer>
+    </footer>  
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const header = document.querySelector(".navbar");
+      const toggle = document.getElementById("navToggle");
 
+      if (toggle && header) {
+        toggle.addEventListener("click", () => {
+          const isOpen = header.classList.toggle("open");
+          toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+      }
+    });
+  </script>
 </body>
 </html>

@@ -198,31 +198,9 @@ router.get("/:id", async (req, res) => {
 
 
 
-// Get single product by ID
-// router.get("/:id", auth, async (req, res) => {
-//   try {
-//     const product = await Product.findOne({ _id: req.params.id, userId: req.user.id });
-//     if (!product) return res.status(404).json({ error: "Not found" });
-//     res.json(product);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// single product 
-// router.get("/product/:id", async (req, res) => {
-//   try {
-//     const product = await Product.findOne({ productId: req.params.id });
-
-//     if (!product) {
-//       return res.status(404).json({ error: "Product not found" });
-//     }
-
-//     res.json(product);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+router.get("/scan", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "scan.html"));
+});
 
 
 

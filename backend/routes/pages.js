@@ -23,6 +23,11 @@ router.get("/about", (req, res) => {
     res.sendFile(htmlPath);
 });
 
+router.get("/contact", (req, res) => {
+    const htmlPath = path.join(__dirname, "../frontend/contact.html"); // <- same
+    res.sendFile(htmlPath);
+});
+
 
 
 router.get("/", (req, res) => {

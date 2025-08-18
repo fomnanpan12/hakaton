@@ -117,6 +117,10 @@ button:hover {
   margin: 15px 0 25px;
 }
 
+.container h2{
+  text-align: center;
+}
+
 /* ==== Features ==== */
 .features {
   padding: 50px 0;
@@ -221,4 +225,121 @@ button:hover {
 }
 .alt-bg {
     background: #fdf8ea;
+}
+
+#reader { width: 320px; margin: auto; }
+#result { margin-top: 20px; font-weight: bold; }
+
+
+/* Contact Page */
+.contact-hero {
+  background: #F6EBC5;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.contact-section {
+  padding: 50px 20px;
+  background: #fff;
+}
+
+.contact-section h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+
+.response-message {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+
+/* Ensure dropdown positions relative to header content */
+.nav-content { position: relative; }
+
+/* Hamburger (hidden on desktop) */
+.hamburger {
+  display: none;
+  width: 36px;
+  height: 28px;
+  position: relative;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.hamburger .bar {
+  position: absolute;
+  left: 0; right: 0;
+  height: 3px;
+  background: #9D6753;
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+.hamburger .bar:nth-child(1) { top: 0; }
+.hamburger .bar:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.hamburger .bar:nth-child(3) { bottom: 0; }
+
+/* Animate to "X" when open */
+.navbar.open .hamburger .bar:nth-child(1) { transform: translateY(12px) rotate(45deg); }
+.navbar.open .hamburger .bar:nth-child(2) { opacity: 0; }
+.navbar.open .hamburger .bar:nth-child(3) { transform: translateY(-12px) rotate(-45deg); }
+
+/* Mobile menu */
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+
+  /* keep brand + burger on one row */
+  .nav-content { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+  /* hide links by default on mobile; show as dropdown */
+  .navbar .nav-links {
+    position: absolute;
+    top: 60px;              /* below navbar */
+    right: 16px;
+    left: 16px;
+    display: none;          /* hidden until open */
+    flex-direction: column;
+    gap: 14px;
+    background: #F6EBC5;
+    border: 1px solid #DCB220;
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  }
+
+  /* show when header has .open */
+  .navbar.open .nav-links { display: flex; }
+
+  /* make button full width in dropdown */
+  .nav-links .nav-btn {
+    text-align: center;
+    display: inline-block;
+  }
 }

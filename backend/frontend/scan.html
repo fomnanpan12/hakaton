@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan QR Code</title>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+      <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo" onclick="window.location.href='/'">Track2Chain</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/scan.html">Scan</a></li>
+          <li><a href="/about.html">About</a></li>
+          <!-- <li><a href="/features.html">Features</a></li> -->
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/auth.html" class="nav-btn">Sign In</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      </button>
+
+    </div>
+  </header>
+  <h2 style="text-align: center;">Scan a QR Code</h2>
+  <div id="reader"></div>
+  <p id="result"></p>
+
+
+  <script>
+    const DOMAIN = "http://localhost:5000"; // change to your real domain if deployed
+
+    function handleResult(decodedText) {
+      document.getElementById("result").innerText = "Scanned: " + decodedText;
+
+      if (decodedText.startsWith(DOMAIN)) {
+        window.open(decodedText, "_blank");
+      } else {
+        alert("Invalid QR: " + decodedText);
+      }
+    }
+
+    // Live camera scanning
+    function onScanSuccess(decodedText) {
+      handleResult(decodedText);
+    }
+    function onScanError(errorMessage) {
+      // ignore errors
+    }
+
+    let scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+    scanner.render(onScanSuccess, onScanError);
+
+    // Upload file scanning
+    document.getElementById("qr-input-file").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const qrCodeScanner = new Html5Qrcode("reader-upload");
+      try {
+        const result = await qrCodeScanner.scanFile(file, true);
+        handleResult(result);
+      } catch (err) {
+        alert("Could not scan file: " + err);
+      }
+    });
+
+  </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector(".navbar");
+    const toggle = document.getElementById("navToggle");
+
+    if (toggle && header) {
+      toggle.addEventListener("click", () => {
+        const isOpen = header.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+    }
+  });
+</script>
+
+
+
+</body>
+</html>

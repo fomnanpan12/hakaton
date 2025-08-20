@@ -6,66 +6,89 @@
   <title>Track2Chain • Auth</title>
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
+
 <body>
+
   <header class="navbar">
-    <div class="container nav-content">
-      <div class="logo" onclick="window.location.href='/'">Track2Chain</div>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/features.html">Features</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="/auth.html" class="nav-btn">Sign In</a></li>
-        </ul>
-      </nav>
-      <button class="hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-      </button>
+  <div class="container nav-content">
+    <!-- Logo -->
+    <div class="logo" onclick="window.location.href='/'">Track2Chain</div>
+
+    <!-- Navigation Links -->
+    <nav class="nav-center">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/scan.html">Scan</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Buttons -->
+    <div class="auth-buttons">
+      <a href="/auth.html" class="nav-btn">Sign In</a>
     </div>
-  </header>
-  <div class="container">
-    <!-- <h1>Product Chain</h1> -->
 
-    <div class="card" id="auth-card">
-      <!-- Login Form -->
-      <div id="login-form">
-        <h2>Login</h2>
-        <input id="log-username" placeholder="Username" />
-        <input id="log-password" type="password" placeholder="Password" />
-        <button onclick="login()">Login</button>
-        <button class="switch-btn" onclick="toggleForm()">Switch to Register</button>
-      </div>
+    <!-- Hamburger for Mobile -->
+    <button class="hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+</header>
 
-      <!-- Registration Form -->
-      <div id="register-form" style="display:none;">
-        <h2>Register</h2>
-        <input id="reg-username" placeholder="Username" />
-        <input id="reg-password" type="password" placeholder="Password" />
-        <button onclick="register()">Create Account</button>
-        <button class="switch-btn" onclick="toggleForm()">Switch to Login</button>
-      </div>
+  <!-- Auth Section -->
+  <div class="auth-container">
+    <div class="auth-card">
+
+<!-- Login Form -->
+<div id="login-form" class="auth-form active">
+  <h2>Welcome Back 👋</h2>
+  <p class="subtitle">Login to continue your journey</p>
+  <input id="log-username" placeholder="Username" />
+  <input id="log-password" type="password" placeholder="Password" />
+
+  <button id="login-btn" onclick="login()" class="auth-btn">
+    <span class="btn-text">Login</span>
+    <span class="spinner"></span>
+  </button>
+
+  <p class="switch-text">Don't have an account? 
+    <span class="switch-link" onclick="toggleForm()">Register</span>
+  </p>
+</div>
+
+<!-- Registration Form -->
+<div id="register-form" class="auth-form">
+  <h2>Join Track2Chain 🚀</h2>
+  <p class="subtitle">Create your account in seconds</p>
+  <input id="reg-username" placeholder="Username" />
+  <input id="reg-password" type="password" placeholder="Password" />
+
+  <button id="register-btn" onclick="register()" class="auth-btn">
+    <span class="btn-text">Sign Up</span>
+    <span class="spinner"></span>
+  </button>
+
+  <p class="switch-text">Already have an account? 
+    <span class="switch-link" onclick="toggleForm()">Login</span>
+  </p>
+</div>
+
+
     </div>
   </div>
 
   <script src="/js/app.js"></script>
   <script>
-    // Toggle between login and register
+    // Toggle between login/register
     function toggleForm() {
-      const loginForm = document.getElementById("login-form");
-      const registerForm = document.getElementById("register-form");
-      if (loginForm.style.display === "none") {
-        loginForm.style.display = "block";
-        registerForm.style.display = "none";
-      } else {
-        loginForm.style.display = "none";
-        registerForm.style.display = "block";
-      }
+      document.getElementById("login-form").classList.toggle("active");
+      document.getElementById("register-form").classList.toggle("active");
     }
-  </script>
-    <script>
+
+    // Navbar toggle script
     document.addEventListener("DOMContentLoaded", () => {
       const header = document.querySelector(".navbar");
       const toggle = document.getElementById("navToggle");
@@ -78,5 +101,79 @@
       }
     });
   </script>
+
+   <!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <h3>Track2Chain</h3>
+          <p>Securing supply chains with blockchain technology</p>
+        </div>
+        
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-column">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="#careers">Careers</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-column">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#docs">Documentation</a></li>
+              <li><a href="#support">Support</a></li>
+              <li><a href="#blog">Blog</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-cta">
+          <h4>Ready to Get Started?</h4>
+          <p>Join thousands of companies securing their supply chains</p>
+          <button class="cta-button">Start Free Trial</button>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2025 Track2Chain. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24">
+              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="GitHub">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </body>
+
+
 </html>

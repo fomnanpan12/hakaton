@@ -5,94 +5,272 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Track2Chain - Home</title>
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
   <!-- Navigation -->
-  <header class="navbar">
-    <div class="container nav-content">
-      <div class="logo" onclick="window.location.href='/'">Track2Chain</div>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/scan.html">Scan</a></li>
-          <li><a href="/about.html">About</a></li>
-          <!-- <li><a href="/features.html">Features</a></li> -->
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="/auth.html" class="nav-btn">Sign In</a></li>
-        </ul>
-      </nav>
-      <button class="hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+
+<header class="navbar">
+  <div class="container nav-content">
+    <!-- Logo -->
+    <div class="logo" onclick="window.location.href='/'">Track2Chain</div>
+
+    <!-- Navigation Links -->
+    <nav class="nav-center">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/scan.html">Scan</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Buttons -->
+    <div class="auth-buttons">
+      <a href="/auth.html" class="nav-btn">Sign In</a>
+    </div>
+
+    <!-- Hamburger for Mobile -->
+    <button class="hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
+    </button>
+  </div>
+</header>
+
+
+    
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container hero-wrapper">
+    <!-- Left Content -->
+    <div class="hero-text">
+      <h1>Track Products With Confidence</h1>
+      <p>
+        With <strong>Track2Chain</strong>, you can verify product authenticity,
+        monitor supply chains in real-time, and build trust using blockchain-powered transparency.
+      </p>
+      <button onclick="window.location.href='/auth.html'" class="btn-primary">
+        Get Started
       </button>
     </div>
-  </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container hero-content">
-      <h1>Track Products with Trust</h1>
-      <p>Track2Chain ensures transparency, authenticity, and security using blockchain technology.</p>
-      <button onclick="window.location.href='/auth.html'">Get Started</button>
+    <!-- Right Image -->
+    <div class="hero-image">
+      <img src="./img/heroimg.png" alt="Track2Chain App Preview" />
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Features Section -->
-  <section class="features container">
-    <h2>Why Choose Product Chain?</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <h3>Transparency</h3>
-        <p>Every food or drug history is securely recorded and visible to all stakeholders.</p>
+
+<!-- Features Section -->
+<section class="features container">
+  <h2>Why Choose Track2Chain?</h2>
+  <div class="features-grid">
+    
+    <div class="feature-card">
+      <div class="icon">
+        <i class="fas fa-eye"></i>
       </div>
-      <div class="feature-card">
-        <h3>Security</h3>
-        <p>Blockchain ensures tamper-proof records and reduces fraud.</p>
+      <h3>Transparency</h3>
+      <p>Every food or drug history is securely recorded and visible to all stakeholders.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div class="icon">
+        <i class="fas fa-shield-alt"></i>
       </div>
-      <div class="feature-card">
-        <h3>Trust</h3>
-        <p>Buyers and sellers can verify food and drug authenticity instantly.</p>
+      <h3>Security</h3>
+      <p>Blockchain ensures tamper-proof records and reduces fraud.</p>
+    </div>
+    
+    <div class="feature-card">
+      <div class="icon">
+        <i class="fas fa-handshake"></i>
+      </div>
+      <h3>Trust</h3>
+      <p>Buyers and sellers can verify food and drug authenticity instantly.</p>
+    </div>
+    
+  </div>
+</section>
+
+
+<!-- How It Works -->
+<section class="how-it-works">
+  <div class="container">
+    <h2>How it works?</h2>
+    <div class="steps-container">
+      <div class="step">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+        </div>
+        <h3>Research Suburbs</h3>
+        <p>Register your food or drug on the blockchain and create a secure digital identity for your product.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+          </svg>
+        </div>
+        <h3>Instant Valuation</h3>
+        <p>Track and update its lifecycle events in real-time throughout the supply chain journey.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+          </svg>
+        </div>
+        <h3>Track Property</h3>
+        <p>Verify authenticity with one click and ensure complete transparency and trust in your products.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- How It Works -->
-  <section class="how-it-works">
-    <div class="container">
-      <h2>How It Works</h2>
-      <ol>
-        <li>Register your food or drug on the blockchain.</li>
-        <li>Track and update its lifecycle events.</li>
-        <li>Verify authenticity with one click.</li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section class="testimonials container">
+ <!-- Testimonials -->
+<section class="testimonials">
+  <div class="container">
     <h2>What Our Users Say</h2>
-    <div class="testimonial-card">
-      <p>"Track2Chain helped us eliminate fake drugs in our supply chain!"</p>
-      <strong>- Jane, Supply Manager</strong>
-    </div>
-  </section>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="quote-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z"/>
+          </svg>
+        </div>
+        <p>"Track2Chain helped us eliminate fake drugs in our supply chain! The transparency and security it provides is unmatched."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <span>J</span>
+          </div>
+          <div class="author-info">
+            <strong>Jane Thompson</strong>
+            <span>Supply Chain Manager</span>
+          </div>
+        </div>
+      </div>
 
-  <!-- Call to Action -->
-  <section class="cta">
-    <div class="container">
-      <h2>Ready to Get Started?</h2>
-      <button onclick="window.location.href='/auth.html'">Sign Up Now</button>
-    </div>
-  </section>
+      <div class="testimonial-card">
+        <div class="quote-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z"/>
+          </svg>
+        </div>
+        <p>"Our customers now trust our products completely. The blockchain verification gives them peace of mind."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <span>M</span>
+          </div>
+          <div class="author-info">
+            <strong>Michael Chen</strong>
+            <span>Food Safety Director</span>
+          </div>
+        </div>
+      </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>© 2025 Product Chain. All rights reserved.</p>
+      <div class="testimonial-card">
+        <div class="quote-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z"/>
+          </svg>
+        </div>
+        <p>"Implementation was seamless and the results were immediate. Highly recommend Track2Chain!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <span>S</span>
+          </div>
+          <div class="author-info">
+            <strong>Sarah Williams</strong>
+            <span>Operations Manager</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
+</section>
+
+  
+
+ <!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <h3>Track2Chain</h3>
+          <p>Securing supply chains with blockchain technology</p>
+        </div>
+        
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-column">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="#careers">Careers</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-column">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#docs">Documentation</a></li>
+              <li><a href="#support">Support</a></li>
+              <li><a href="#blog">Blog</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-cta">
+          <h4>Ready to Get Started?</h4>
+          <p>Join thousands of companies securing their supply chains</p>
+          <button class="cta-button">Start Free Trial</button>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2025 Track2Chain. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24">
+              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="GitHub">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const header = document.querySelector(".navbar");

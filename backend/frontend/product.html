@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Product Details</title>
   <link rel="stylesheet" href="css/styles.css" />
+
   <style>
     body { font-family: Arial, sans-serif;}
     .card {
@@ -26,32 +27,65 @@
     }
     .btn:hover { background: #0056b3; }
   </style>
+
 </head>
 <body>
   <header class="navbar">
-    <div class="container nav-content">
-      <div class="logo" onclick="window.location.href='/'">Track2Chain</div>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/scan.html">Scan</a></li>
-          <li><a href="/about.html">About</a></li>
-          <!-- <li><a href="/features.html">Features</a></li> -->
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="/auth.html" class="nav-btn">Sign In</a></li>
-        </ul>
-      </nav>
-      <button class="hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+   <div class="container nav-content">
+    <!-- Logo -->
+    <div class="logo" onclick="window.location.href='/'">Track2Chain</div>
+
+    <!-- Navigation Links -->
+    <nav class="nav-center">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/scan.html">Scan</a></li>
+        <li><a href="/about.html">About</a></li>
+     <li>
+     <a href="productview.html" 
+      class="active" 
+     style="text-decoration: none; color: inherit; font-weight: 600;">
+    Add Products
+   </a>
+   </li>
+
+        <li><a href="productlist.html">My Products</a></li>
+      </ul>
+    </nav>
+
+    <!-- Buttons -->
+    <div class="auth-buttons">
+     <a href="auth.html" 
+     onclick="logout()" 
+
+     style="background: linear-gradient(135deg, #9D6753 0%, #b7836d 100%); 
+            color: white; 
+            padding: 8px 14px; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-weight: 700; 
+            border: 2px solid transparent; 
+            transition: 0.3s ease;">
+        Logout
+   </a>
+   </div>
+
+
+    <!-- Hamburger for Mobile -->
+    <button class="hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
-      </button>
-    </div>
-  </header>
+    </button>
+  </div>
+
+</header>
+
   <div class="container">
     <h1 style="text-align:center;">Product Details</h1>
     <div id="product"></div>
   </div>
+
   <script>
     async function load() {
       const url = new URL(window.location.href);

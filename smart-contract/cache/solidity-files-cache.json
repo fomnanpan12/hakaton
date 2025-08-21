@@ -1,9 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/home/wilson/Desktop/product-chain-app/smart-contract/contracts/ProductRegistry.sol": {
-      "lastModificationDate": 1755260083541,
-      "contentHash": "d8e497d904787bc1dc8f5bdde305667c",
+    "/home/wilson/Desktop/hakaton/smart-contract/contracts/ProductRegistry.sol": {
+      "lastModificationDate": 1755764598051,
+      "contentHash": "6a784dd75c5bb57eb837011b1bfa1b95",
       "sourceName": "contracts/ProductRegistry.sol",
       "solcConfig": {
         "version": "0.8.24",

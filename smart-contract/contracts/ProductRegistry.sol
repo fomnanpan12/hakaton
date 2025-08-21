@@ -9,6 +9,7 @@ contract ProductRegistry {
         string harvestDate;
         string packagingDate;
         string expiryDate;
+        string location;   // ✅ added location
         address owner;
         uint256 timestamp;
     }
@@ -23,6 +24,7 @@ contract ProductRegistry {
         string harvestDate,
         string packagingDate,
         string expiryDate,
+        string location,
         address indexed owner
     );
 
@@ -31,7 +33,8 @@ contract ProductRegistry {
         string memory _producerAddress,
         string memory _harvestDate,
         string memory _packagingDate,
-        string memory _expiryDate
+        string memory _expiryDate,
+        string memory _location   // ✅ collect location during registration
     ) public {
         productCount++;
         products[productCount] = Product(
@@ -41,6 +44,7 @@ contract ProductRegistry {
             _harvestDate,
             _packagingDate,
             _expiryDate,
+            _location,
             msg.sender,
             block.timestamp
         );
@@ -52,6 +56,7 @@ contract ProductRegistry {
             _harvestDate,
             _packagingDate,
             _expiryDate,
+            _location,
             msg.sender
         );
     }
@@ -66,6 +71,7 @@ contract ProductRegistry {
             string memory,
             string memory,
             string memory,
+            string memory,   // ✅ return location too
             address,
             uint256
         )
@@ -78,6 +84,7 @@ contract ProductRegistry {
             p.harvestDate,
             p.packagingDate,
             p.expiryDate,
+            p.location,
             p.owner,
             p.timestamp
         );

@@ -6,6 +6,7 @@ import { ethers } from "ethers";
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
+import crypto from "crypto";
 
 dotenv.config();
 const router = express.Router();
@@ -61,8 +62,10 @@ router.post("/register", auth, async (req, res) => {
     const receipt = await tx.wait();
 
     // Get new product ID from contract
-    const productCount = await contract.productCount();
-    const productId = productCount.toNumber();
+    // const productCount = await contract.productCount();
+    // const productId = productCount.toNumber();
+    const productId = "0x" + crypto.randomBytes(16).toString("hex"); // 128-bit safe random ID
+
 
     // Generate product URL and QR code
     const url = `https://hakaton-1lu4.onrender.com/product.html?id=${productId}`;

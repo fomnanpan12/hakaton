@@ -139,7 +139,7 @@ router.get("/product/:id", async (req, res) => {
     // --- On-chain data ---
     const p = await contract.getProduct(id);
     const chainData = {
-      id: p[0].toNumber ? p[0].toNumber() : Number(p[0]),
+      id: p[0],
       name: p[1],
       producerAddress: p[2],
       harvestDate: p[3],

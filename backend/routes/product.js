@@ -65,7 +65,8 @@ router.post("/register", auth, async (req, res) => {
     // Get new product ID from contract
     // const crypto = require("crypto");
     // const productId = crypto.randomBytes(8).toString("hex"); 
-    const productId = BigInt("0x" + crypto.randomBytes(16).toString("hex"));
+    const randomId = "0x" + crypto.randomBytes(16).toString("hex"); 
+    const productId = ethers.BigNumber.from(randomId);
 
     // Generate product URL and QR code
     const url = `https://hakaton-1lu4.onrender.com/product.html?id=${productId}`;
@@ -140,7 +141,7 @@ router.get("/product/:id", async (req, res) => {
     // --- On-chain data ---
     const p = await contract.getProduct(id);
     const chainData = {
-      id: p[0].toString(),
+      id: p[0].toNumber ? p[0].toNumber() : Number(p[0]),
       name: p[1],
       producerAddress: p[2],
       harvestDate: p[3],
@@ -178,7 +179,7 @@ router.get("/:id", async (req, res) => {
     // get from chain
     const p = await contract.getProduct(id);
     const chainData = {
-      id: p[0].toString(),
+      id: p[0].toNumber ? p[0].toNumber() : Number(p[0]),
       name: p[1],
       producerAddress: p[2],
       harvestDate: p[3],

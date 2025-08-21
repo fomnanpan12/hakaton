@@ -40,6 +40,12 @@
           "type": "string"
         },
         {
+          "indexed": false,
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
           "indexed": true,
           "internalType": "address",
           "name": "owner",
@@ -63,6 +69,11 @@
           "internalType": "uint256",
           "name": "",
           "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
         },
         {
           "internalType": "string",
@@ -157,6 +168,11 @@
           "type": "string"
         },
         {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
           "internalType": "address",
           "name": "owner",
           "type": "address"
@@ -195,6 +211,11 @@
         {
           "internalType": "string",
           "name": "_expiryDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_location",
           "type": "string"
         }
       ],

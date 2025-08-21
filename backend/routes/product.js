@@ -51,13 +51,13 @@ import Product from "../models/Product.js";
 
 router.post("/register", auth, async (req, res) => {
   try {
-    const { name, producerAddress, harvestDate, packagingDate, expiryDate } = req.body;
-    if (!name || !producerAddress || !harvestDate || !packagingDate || !expiryDate) {
+    const { name, producerAddress, harvestDate, packagingDate, expiryDate, location } = req.body;
+    if (!name || !producerAddress || !harvestDate || !packagingDate || !expiryDate || !location) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
     // Blockchain transaction
-    const tx = await contract.registerProduct(name, producerAddress, harvestDate, packagingDate, expiryDate);
+    const tx = await contract.registerProduct(name, producerAddress, harvestDate, packagingDate, expiryDate, location);
     const receipt = await tx.wait();
 
     // Get new product ID from contract
@@ -66,6 +66,7 @@ router.post("/register", auth, async (req, res) => {
 
     // Generate product URL and QR code
     const url = `https://hakaton-1lu4.onrender.com/product.html?id=${productId}`;
+    // const url = `http://localhost:5000/product.html?id=${productId}`;
     const qrCode = await QRCode.toDataURL(url);
 
     // Save to DB
@@ -76,6 +77,7 @@ router.post("/register", auth, async (req, res) => {
       harvestDate,
       packagingDate,
       expiryDate,
+      location,
       productId,
       qrCode,
       txHash: receipt.transactionHash,
@@ -141,8 +143,9 @@ router.get("/product/:id", async (req, res) => {
       harvestDate: p[3],
       packagingDate: p[4],
       expiryDate: p[5],
-      owner: p[6],
-      timestamp: p[7].toNumber ? p[7].toNumber() : Number(p[7])
+      location: p[6],
+      owner: p[7],
+      timestamp: p[8].toNumber ? p[7].toNumber() : Number(p[7])
     };
 
     // --- Off-chain data (MongoDB) ---

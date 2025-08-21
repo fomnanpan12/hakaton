@@ -96,6 +96,8 @@
       }
 
       const api = "https://hakaton-1lu4.onrender.com/product/" + id;
+      // const api = "http://localhost:5000/product/" + id;
+
       try {
         const res = await fetch(api);
         const data = await res.json();
@@ -104,7 +106,7 @@
           document.getElementById("product").innerText = data.error;
           return;
         }
-
+        console.log(data)
         document.getElementById("product").innerHTML = `
           <div class="card">
             <p><b>Product ID:</b> ${data.id}</p>

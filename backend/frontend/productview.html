@@ -100,6 +100,8 @@
         <input id="p-packaging" type="date" />
         <span>Expiry Date:</span>
         <input id="p-expiry" type="date" />
+        <span>Location route:</span>
+        <input id="p-location" type="date" />
         <button onclick="registerProduct()">Submit to Blockchain</button>
       </div>
       <div id="qr"></div>
@@ -133,6 +135,7 @@
         harvestDate: harvestDate,
         packagingDate: document.getElementById("p-packaging").value,
         expiryDate: document.getElementById("p-expiry").value,
+        location: document.getElementById("p-location").value,
       };
 
       // Show loader

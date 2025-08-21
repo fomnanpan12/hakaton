@@ -181,8 +181,9 @@ router.get("/:id", async (req, res) => {
       harvestDate: p[3],
       packagingDate: p[4],
       expiryDate: p[5],
-      owner: p[6],
-      timestamp: p[7].toNumber ? p[7].toNumber() : Number(p[7])
+      location: p[6],
+      owner: p[7],
+      timestamp: p[8].toNumber ? p[8].toNumber() : Number(p[7])
     };
 
     // get from MongoDB

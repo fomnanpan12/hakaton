@@ -177,7 +177,7 @@ router.get("/:id", async (req, res) => {
     // get from chain
     const p = await contract.getProduct(id);
     const chainData = {
-      id: p[0].toNumber ? p[0].toNumber() : Number(p[0]),
+      id: p[0].toString(),
       name: p[1],
       producerAddress: p[2],
       harvestDate: p[3],

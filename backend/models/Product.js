@@ -11,7 +11,7 @@ const ProductSchema = new mongoose.Schema({
   harvestDate: { type: String, required: true },
   packagingDate: { type: String, required: true },
   expiryDate: { type: String, required: true },
-  productId: { type: Number, required: true },
+  productId: { type: String, required: true },
   qrCode: { type: String, required: true }, // DataURL of QR code
   txHash: { type: String, required: true },
   url: { type: String, required: true }

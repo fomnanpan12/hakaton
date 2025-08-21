@@ -6,6 +6,8 @@ import { ethers } from "ethers";
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
+import crypto from "crypto";
+
 
 dotenv.config();
 const router = express.Router();
@@ -61,7 +63,7 @@ router.post("/register", auth, async (req, res) => {
     const receipt = await tx.wait();
 
     // Get new product ID from contract
-    const crypto = require("crypto");
+    // const crypto = require("crypto");
     const productId = crypto.randomBytes(8).toString("hex"); 
 
     // Generate product URL and QR code

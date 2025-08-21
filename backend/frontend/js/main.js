@@ -1,4 +1,5 @@
 const API = "https://hakaton-1lu4.onrender.com";
+// const API = "https://localhost:5000";
 
 // ====================== QR SCANNER PAGE ======================
 

@@ -132,42 +132,42 @@ router.get("/my", auth, async (req, res) => {
 //   }
 // });
 
-// router.get("/product/:id", async (req, res) => {
-//   try {
-//     const id = parseInt(req.params.id, 10);
+router.get("/product/:id", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
 
-//     // --- On-chain data ---
-//     const p = await contract.getProduct(id);
-//     const chainData = {
-//       id: p[0].toNumber ? p[0].toNumber() : Number(p[0]),
-//       name: p[1],
-//       producerAddress: p[2],
-//       harvestDate: p[3],
-//       packagingDate: p[4],
-//       expiryDate: p[5],
-//       location: p[6],
-//       owner: p[7],
-//       timestamp: p[8].toNumber ? p[7].toNumber() : Number(p[7])
-//     };
+    // --- On-chain data ---
+    const p = await contract.getProduct(id);
+    const chainData = {
+      id: p[0].toNumber ? p[0].toNumber() : Number(p[0]),
+      name: p[1],
+      producerAddress: p[2],
+      harvestDate: p[3],
+      packagingDate: p[4],
+      expiryDate: p[5],
+      location: p[6],
+      owner: p[7],
+      timestamp: p[8].toNumber ? p[7].toNumber() : Number(p[7])
+    };
 
-//     // --- Off-chain data (MongoDB) ---
-//     const dbProduct = await Product.findOne({ productId: id });
+    // --- Off-chain data (MongoDB) ---
+    const dbProduct = await Product.findOne({ productId: id });
 
-//     // Merge results (prefer MongoDB fields if present, since they include qrCode & txHash)
-//     const result = {
-//       ...chainData,
-//       qrCode: dbProduct?.qrCode || null,
-//       txHash: dbProduct?.txHash || null,
-//       url: dbProduct?.url || null,
-//       createdAt: dbProduct?.createdAt || null,
-//       updatedAt: dbProduct?.updatedAt || null
-//     };
+    // Merge results (prefer MongoDB fields if present, since they include qrCode & txHash)
+    const result = {
+      ...chainData,
+      qrCode: dbProduct?.qrCode || null,
+      txHash: dbProduct?.txHash || null,
+      url: dbProduct?.url || null,
+      createdAt: dbProduct?.createdAt || null,
+      updatedAt: dbProduct?.updatedAt || null
+    };
 
-//     res.json(result);
-//   } catch (e) {
-//     res.status(500).json({ error: e.message });
-//   }
-// });
+    res.json(result);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 // backend/routes/product.js
 router.get("/:id", async (req, res) => {
